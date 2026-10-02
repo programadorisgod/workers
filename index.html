@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<head>
+    <title>Workers</title>
+</head>
+<body>
+
+    <header>
+        <h1>Workers</h1>
+        <p id="status"></p>
+    </header>
+
+    <main>
+        <h3>
+            web workers
+        </h3>
+
+        <button id="start-heavy-task">
+          Start heavy task
+        </button>
+      <!--simular que se sigue usando la app sin bloqueos           -->
+
+        <input type="text" id="input" placeholder="Enter text for searching">
+        <div id="result">
+            <p>
+                Search results will appear here.
+            </p>
+        </div>
+
+        <section>
+            <h2>Service workers</h2>
+
+
+            <div id="gallery">
+
+
+            </div>
+
+        <section id="printer-section" style="margin-top: 30px; padding: 20px; border: 2px dashed #4CAF50; border-radius: 10px; max-width: 480px; background: #fafafa; font-family: system-ui, sans-serif;">
+            <h2>🖨️ Mini Factura (Printer Agent PoC)</h2>
+            <p style="font-size: 0.9em; color: #555;">Impresora térmica 58mm (Goojprt PT-210) vía Bluetooth / USB / HTTP LAN.</p>
+
+            <div style="margin-bottom: 15px;">
+                <label for="agent-url" style="display: block; font-weight: bold; margin-bottom: 4px;">URL del Printer Agent:</label>
+                <input type="text" id="agent-url" value="http://localhost:3333" style="width: 100%; box-sizing: border-box; padding: 8px; font-family: monospace; border: 1px solid #ccc; border-radius: 4px;">
+                <small style="color: #666; display: block; margin-top: 4px;">
+                    Desde el móvil usa la IP del PC: <code id="lan-ip-hint" style="background: #eef; padding: 2px 4px; border-radius: 3px; cursor: pointer;">http://192.168.1.108:3333</code>
+                </small>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label for="transport-select" style="display: block; font-weight: bold; margin-bottom: 4px;">Transporte:</label>
+                <select id="transport-select" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                    <option value="auto">Auto (Detectar Bluetooth / USB)</option>
+                    <option value="serial">Serial / Bluetooth (/dev/rfcomm0)</option>
+                    <option value="usb">USB (/dev/usb/lp0)</option>
+                    <option value="mock">Simulador (Consola)</option>
+                </select>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label for="paper-mode-select" style="display: block; font-weight: bold; margin-bottom: 4px;">Tipo de Papel / Formato:</label>
+                <select id="paper-mode-select" style="width: 100%; padding: 8px; border: 1px solid #4CAF50; border-radius: 4px; font-weight: 500;">
+                    <option value="label" selected>🏷️ Papel de Estampitas / Stickers (TSPL)</option>
+                    <option value="receipt">🧾 Papel Normal Continuo (ESC/POS Factura)</option>
+                </select>
+                <small style="color: #666; display: block; margin-top: 4px;">
+                    Cambia a <b>Papel Normal</b> cuando insertes un rollo de factura continua.
+                </small>
+            </div>
+
+            <!-- Previsualización de la mini factura tipo estampita -->
+            <div id="receipt-preview" style="background: #fff; border: 1px solid #ddd; padding: 12px; font-family: monospace; font-size: 13px; margin-bottom: 15px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                <div style="text-align: center; font-weight: bold; font-size: 15px;">TIENDA EXPRESS</div>
+                <div style="text-align: center; color: #666; font-size: 11px;">NIT: 900.123.456-7</div>
+                <div style="text-align: center; font-size: 11px;">TICKET #2026-001</div>
+                <div style="border-top: 1px dashed #999; margin: 8px 0;"></div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>2x Café Colombiano</span>
+                    <span>$6.000</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>1x Pastel de Pollo</span>
+                    <span>$4.500</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>1x Agua Mineral</span>
+                    <span>$2.500</span>
+                </div>
+                <div style="border-top: 1px dashed #999; margin: 8px 0;"></div>
+                <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 14px;">
+                    <span>TOTAL:</span>
+                    <span>$13.000</span>
+                </div>
+                <div style="text-align: center; font-size: 11px; margin-top: 10px; color: #777;">
+                    ¡Gracias por su compra!<br>*** Mini Factura PWA ***
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <button id="btn-print-receipt" style="flex: 2; padding: 10px 14px; background: #2e7d32; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px;">
+                    🖨️ Imprimir Mini Factura
+                </button>
+                <button id="btn-test-printer" style="flex: 1; padding: 10px 14px; background: #1976d2; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px;">
+                    📄 Test
+                </button>
+            </div>
+
+            <div id="printer-status" style="margin-top: 12px; font-size: 13px; min-height: 20px;"></div>
+        </section>
+    </main>
+
+    <script type="module" src="index.js"></script>
+</body>
+</html>
